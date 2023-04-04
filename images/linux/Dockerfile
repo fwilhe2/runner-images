@@ -25,7 +25,7 @@ RUN bash installers/nodejs.sh
 # RUN bash installers/nvm.sh
 RUN bash installers/java-tools.sh
 
-RUN chmod 777 /opt
+RUN chmod 777 /opt; chmod 777 /usr
 
 RUN mkdir -p /home/runner \
  && echo "runner:x:1000:1000:runner:/home/runner:/bin/bash" >> /etc/passwd \
