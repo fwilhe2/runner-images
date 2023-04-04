@@ -6,7 +6,7 @@ COPY ./scripts .
 COPY ./toolsets .
 
 
-RUN apt-get update -yqq && apt-get install -yqq jq wget curl unzip lsb-release sudo
+RUN apt-get update -yqq && apt-get install -yqq jq wget curl unzip lsb-release sudo lbzip2
 
 
 RUN echo 'echo $@' > /usr/bin/invoke_tests
