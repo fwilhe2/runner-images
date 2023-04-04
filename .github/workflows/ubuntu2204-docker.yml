@@ -1,0 +1,37 @@
+name: Docker
+
+on:
+  push:
+    # Publish `main` as Docker `latest` image.
+    branches:
+      - main
+
+    # Publish `v1.2.3` tags as releases.
+    tags:
+      - v*
+
+  # Run tests for any PRs.
+  pull_request:
+
+env:
+  IMAGE_NAME: actions-runner-image
+
+jobs:
+  # Push image to GitHub Packages.
+  # See also https://docs.docker.com/docker-hub/builds/
+  push:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push'
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Build image
+        run: docker build images/linux --file Dockerfile --tag fwilhe2/actions-runner-image:latest
+
+      - name: Log into DockerHub
+        run: echo "${{ secrets.DH_PAT }}" | docker login -u fwilhe2 --password-stdin
+
+      - name: Push image
+        run: |
+          docker push fwilhe2/actions-runner-image:latest
