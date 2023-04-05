@@ -12,20 +12,27 @@ RUN apt-get update -yqq && apt-get install -yqq jq wget curl unzip lsb-release s
 RUN echo 'echo $@' > /usr/bin/invoke_tests
 RUN chmod +x /usr/bin/invoke_tests
 
-RUN echo 'echo "$(jq -r "$query" toolset-2204.json)"' > /usr/bin/get_toolset_value
+RUN echo 'echo "$(jq -r "$query" toolset-2204-slim.json)"' > /usr/bin/get_toolset_value
 RUN chmod +x /usr/bin/get_toolset_value
 
 RUN mkdir -p /imagegeneration/installers/
-RUN cp toolset-2204.json /imagegeneration/installers/toolset.json
+RUN cp toolset-2204-slim.json /imagegeneration/installers/toolset.json
 
 RUN bash base/repos.sh
 
+# RUN bash installers/basic.sh
+
+RUN bash installers/configure-environment.sh
+
 RUN bash installers/git.sh
+RUN bash installers/github-cli.sh
 RUN bash installers/nodejs.sh
+RUN bash installers/python.sh
 # RUN bash installers/nvm.sh
 RUN bash installers/java-tools.sh
 
-RUN chmod 777 /opt; chmod 777 /usr
+RUN chmod -R 777 /opt
+RUN chmod -R 777 /usr/share
 
 RUN mkdir -p /home/runner \
  && echo "runner:x:1000:1000:runner:/home/runner:/bin/bash" >> /etc/passwd \
