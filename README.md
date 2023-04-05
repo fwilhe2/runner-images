@@ -6,6 +6,7 @@
 - [About](#about)
 - [Available Images](#available-images)
 - [Ongoing migrations](#ongoing-migrations)
+
 - [Image Definitions](#image-definitions)
 - [Image Releases](#image-releases)
 - [Software and Image Support](#software-and-image-support)
