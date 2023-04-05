@@ -29,6 +29,14 @@ jobs:
       - name: Build image
         run: docker build ./images/linux --tag fwilhe2/actions-runner-image:latest
 
+      - name: Dive
+        uses: yuichielectric/dive-action@0.0.4
+        with:
+          image: "fwilhe2/actions-runner-image:latest"
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - run: docker images
+
       - name: Log into DockerHub
         run: echo "${{ secrets.DH_PAT }}" | docker login -u fwilhe2 --password-stdin
 
