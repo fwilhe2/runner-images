@@ -17,29 +17,26 @@ env:
   IMAGE_NAME: actions-runner-image
 
 jobs:
-  # Push image to GitHub Packages.
-  # See also https://docs.docker.com/docker-hub/builds/
-  push:
+  build:
     runs-on: ubuntu-latest
-    if: github.event_name == 'push'
-
     steps:
       - uses: actions/checkout@v3
-
       - name: Build image
-        run: docker build ./images/linux --tag fwilhe2/actions-runner-image:latest
-
+        run: docker build ./images/linux --tag fwilhe2/${{ env.IMAGE_NAME }}:latest
       - name: Dive
         uses: yuichielectric/dive-action@0.0.4
         with:
-          image: "fwilhe2/actions-runner-image:latest"
+          image: fwilhe2/${{ env.IMAGE_NAME }}:latest
           github-token: ${{ secrets.GITHUB_TOKEN }}
-
       - run: docker images
 
+  push:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push'
+    steps:
+      - uses: actions/checkout@v3
       - name: Log into DockerHub
         run: echo "${{ secrets.DH_PAT }}" | docker login -u fwilhe2 --password-stdin
-
       - name: Push image
         run: |
-          docker push fwilhe2/actions-runner-image:latest
+          docker push fwilhe2/${{ env.IMAGE_NAME }}:latest
