@@ -14,11 +14,13 @@ RUN  apt-get update -yqq && apt-get install -yqq jq wget curl unzip lsb-release 
     && cp toolset-2204-slim.json /imagegeneration/installers/toolset.json \
     && bash base/repos.sh \
     && bash installers/configure-environment.sh \
-    && bash installers/git.sh \
-    && bash installers/github-cli.sh \
-    && bash installers/nodejs.sh \
-    && bash installers/python.sh \
-    && bash installers/java-tools.sh \
+    && apt-get install -yqq $(jq -r '.apt.common_packages | join(" ")' toolset-2204-slim.json) \
+    && apt-get install -yqq $(jq -r '.apt.cmd_packages | join(" ")' toolset-2204-slim.json) \
+    # && bash installers/git.sh \
+    # && bash installers/github-cli.sh \
+    # && bash installers/nodejs.sh \
+    # && bash installers/python.sh \
+    # && bash installers/java-tools.sh \
     && chmod -R 777 /opt \
     && chmod -R 777 /usr/share \
     && mkdir -p /home/runner \
