@@ -14,8 +14,8 @@ RUN  apt-get update -yqq && apt-get install -yqq jq wget curl unzip lsb-release 
     && cp toolset-2204-slim.json /imagegeneration/installers/toolset.json \
     && bash base/repos.sh \
     && bash installers/configure-environment.sh \
-    && apt-get install -yqq $(jq -r '.apt.common_packages | join(" ")' toolset-2204-slim.json) \
-    && apt-get install -yqq $(jq -r '.apt.cmd_packages | join(" ")' toolset-2204-slim.json) \
+    && apt-get install -yqq autoconf automake build-essential dbus dnsutils dpkg fakeroot fonts-noto-color-emoji gnupg2 imagemagick iproute2 iputils-ping lib32z1 libc++abi-dev libc++-dev libcurl4 libgbm-dev libgconf-2-4 libgsl-dev libgtk-3-0 libmagic-dev libmagickcore-dev libmagickwand-dev libsecret-1-dev libsqlite3-dev libyaml-dev libtool libunwind8 libxkbfile-dev libxss1 libssl-dev locales mercurial openssh-client p7zip-rar pkg-config python-is-python3 rpm tar texinfo tk tzdata upx xorriso xvfb xz-utils zsync \
+    && apt-get install -yqq acl aria2 binutils bison brotli bzip2 coreutils curl file flex ftp haveged jq lz4 m4 mediainfo netcat net-tools p7zip-full parallel pass patchelf pollinate rsync shellcheck sphinxsearch sqlite3 ssh sshpass subversion sudo swig telnet time unzip wget zip \
     # && bash installers/git.sh \
     # && bash installers/github-cli.sh \
     # && bash installers/nodejs.sh \
