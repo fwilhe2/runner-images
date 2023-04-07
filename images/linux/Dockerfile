@@ -17,8 +17,8 @@ RUN  apt-get update -yqq && apt-get install -yqq jq wget curl unzip lsb-release 
     && bash installers/configure-environment.sh \
     && apt-get install -yqq $(jq -r '.apt.common_packages | join(" ")' toolset-2204-slim.json) \
     && apt-get install -yqq $(jq -r '.apt.cmd_packages | join(" ")' toolset-2204-slim.json) \
-    # && bash installers/git.sh \
-    # && bash installers/github-cli.sh \
+    && bash installers/git.sh \
+    && bash installers/github-cli.sh \
     # && bash installers/nodejs.sh \
     # && bash installers/python.sh \
     # && bash installers/java-tools.sh \
